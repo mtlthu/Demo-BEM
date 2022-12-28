@@ -1,0 +1,114 @@
+ <!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>BEM</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <body>
+        
+        
+         <!--Success-->
+         <div id="toast">
+            <div class="toast toast--success"> 
+                <div class="toast__icon">
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+            
+                <div class="toast__body">
+                    <h3 class="toast__title">Success</h3>
+                    <p class="toast__msg">Tham gia các khóa học MIỄN PHÍ tại F8 tại đây nhé</p>
+                </div>
+                <div class="toast__close">
+
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            
+         </div>
+         <div>
+            <button onclick="showSuccessToast();" class="btn btn--success btn--size-s ">GO TO NEXT APPOVAL</button>
+            <button class="btn btn--warn btn--size-s">OK</button>
+            <button onclick="showErrorToast();" class="btn btn--danger btn--size-s">TRY AGAIN</button>
+        </div>
+        <script>
+            function toast({
+                title = '',
+                message ='',
+                type = 'Info',
+                duration = 3000}){
+                    const main=document.getElementById('toast');
+                    if(main){
+                        const toast=document.createElement('div');
+                       const autoRemoveId= setTimeout(function(){
+                            main.removeChild(toast);
+                        },duration + 1000);
+
+                        toast.onclick=function(e){
+                            if(e.target.closest('.toast__close')){
+                                main.removeChild(toast);
+                                clearTimeout(autoRemoveId);
+                            }
+
+                        }
+                        const icons={
+                            success: 'fas fa-circle-check',
+                            Info: 'fas fa-circle-info',
+                            Warning: 'fas fa-circle-exclamation',
+                            Error: 'fas fa-circle-exclamation',
+
+                        };
+                        
+                        const icon=icons[type];
+                        const delay=(duration/1000).toFixed(2);
+                        toast.classList.add('toast', `toast--${type}`);
+                        toast.style.animation=`SlideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
+                        toast.innerHTML =`
+                        <div class="toast__icon">
+                            <i class="${icon}"></i>
+
+                        </div>
+                    
+                        <div class="toast__body">
+                            <h3 class="toast__title">${title}</h3>
+                            <p class="toast__msg">${message}</p>
+                        </div>
+                        <div class="toast__close">
+
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>`;
+                        main.appendChild(toast);
+                       
+                    }
+
+
+            } 
+            toast({
+                title: 'Success 1213',
+                message:'Tham gia các khóa học MIỄN PHÍ tại F8 tại đây nhécdfsdfgsd',
+                type: 'Info',
+                duration: 5000,
+            });
+            function showSuccessToast(){
+                toast({
+                title: 'Success 1213',
+                message:'Tham gia các khóa học MIỄN PHÍ tại F8 tại đây nhécdfsdfgsd',
+                type: 'success',
+                duration: 5000,
+            });
+            }
+            function showErrorToast(){
+                toast({
+                title: 'Success 1213',
+                message:'Tham gia các khóa học MIỄN PHÍ tại F8 tại đây nhécdfsdfgsd',
+                type: 'Error',
+                duration: 5000,
+            });
+            }
+        </script>
+    </body>
+
+</html>
